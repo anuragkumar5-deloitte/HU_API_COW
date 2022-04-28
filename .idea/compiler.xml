@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="HU_COW_MAIN_ASSIGNMENT" />
+        <module name="HU_API_COW" />
       </profile>
     </annotationProcessing>
   </component>
