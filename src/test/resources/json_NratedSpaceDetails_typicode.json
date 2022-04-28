@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "address": {
+          "type": "string"
+        },
+        "no_of_hours": {
+          "type": "null"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "no_of_slots": {
+          "type": "null"
+        },
+        "owner_id": {
+          "type": "integer"
+        },
+        "space_img": {
+          "type": "null"
+        },
+        "AverageRating": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "type",
+        "price",
+        "address",
+        "no_of_hours",
+        "start_time",
+        "end_time",
+        "no_of_slots",
+        "owner_id",
+        "space_img",
+        "AverageRating"
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "address": {
+          "type": "string"
+        },
+        "no_of_hours": {
+          "type": "integer"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "no_of_slots": {
+          "type": "integer"
+        },
+        "owner_id": {
+          "type": "integer"
+        },
+        "space_img": {
+          "type": "null"
+        },
+        "AverageRating": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "type",
+        "price",
+        "address",
+        "no_of_hours",
+        "start_time",
+        "end_time",
+        "no_of_slots",
+        "owner_id",
+        "space_img",
+        "AverageRating"
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "address": {
+          "type": "string"
+        },
+        "no_of_hours": {
+          "type": "integer"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "no_of_slots": {
+          "type": "integer"
+        },
+        "owner_id": {
+          "type": "integer"
+        },
+        "space_img": {
+          "type": "null"
+        },
+        "AverageRating": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "type",
+        "price",
+        "address",
+        "no_of_hours",
+        "start_time",
+        "end_time",
+        "no_of_slots",
+        "owner_id",
+        "space_img",
+        "AverageRating"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="All Test Suite">
+    <listeners><listener class-name="TestngListener"></listener></listeners>
+    <test verbose="2" preserve-order="true" name="C:/Users/anuragkumar5/Desktop/Files/HU_COW_SELENIUM_MAIN">
+        <classes>
+
+            <class name="CreateSpacesTest"></class>
+            <class name="Booking"></class>
+            <class name="getreview"></class>
+            <class name="OwnerTableTest"></class>
+            <class name="SpaceTypeTest"></class>
+            <class name="UserTableTest"></class>
+
+        </classes>
+    </test></suite>

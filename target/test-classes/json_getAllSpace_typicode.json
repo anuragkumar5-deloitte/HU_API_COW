@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "space_id": {
+          "type": "integer"
+        },
+        "space_name": {
+          "type": "string"
+        },
+        "space_address": {
+          "type": "string"
+        },
+        "space_price": {
+          "type": "integer"
+        },
+        "space_startTime": {
+          "type": "string"
+        },
+        "space_endTime": {
+          "type": "string"
+        },
+        "space_noOfHours": {
+          "type": "integer"
+        },
+        "space_type": {
+          "type": "integer"
+        },
+        "space_img": {
+          "type": "null"
+        },
+        "spaceType_name": {
+          "type": "string"
+        },
+        "perk_id": {
+          "type": "integer"
+        },
+        "perk_wifi": {
+          "type": "integer"
+        },
+        "perk_ac": {
+          "type": "integer"
+        },
+        "perk_freeSnacks": {
+          "type": "integer"
+        },
+        "perk_canteen": {
+          "type": "integer"
+        },
+        "perk_plugPoint": {
+          "type": "integer"
+        },
+        "perk_powerBackup": {
+          "type": "null"
+        },
+        "perk_projector": {
+          "type": "null"
+        },
+        "perk_printer": {
+          "type": "integer"
+        },
+        "facilities_id": {
+          "type": "integer"
+        },
+        "facilities_lift": {
+          "type": "integer"
+        },
+        "facilities_locker": {
+          "type": "integer"
+        },
+        "facilities_parking": {
+          "type": "integer"
+        },
+        "facilities_washroom": {
+          "type": "integer"
+        },
+        "owner_id": {
+          "type": "integer"
+        },
+        "owner_name": {
+          "type": "string"
+        },
+        "owner_username": {
+          "type": "string"
+        },
+        "owner_password": {
+          "type": "string"
+        },
+        "owner_email": {
+          "type": "string"
+        },
+        "owner_dob": {
+          "type": "string"
+        },
+        "owner_contact": {
+          "type": "string"
+        },
+        "owner_bio": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "space_id",
+        "space_name",
+        "space_address",
+        "space_price",
+        "space_startTime",
+        "space_endTime",
+        "space_noOfHours",
+        "space_type",
+        "space_img",
+        "spaceType_name",
+        "perk_id",
+        "perk_wifi",
+        "perk_ac",
+        "perk_freeSnacks",
+        "perk_canteen",
+        "perk_plugPoint",
+        "perk_powerBackup",
+        "perk_projector",
+        "perk_printer",
+        "facilities_id",
+        "facilities_lift",
+        "facilities_locker",
+        "facilities_parking",
+        "facilities_washroom",
+        "owner_id",
+        "owner_name",
+        "owner_username",
+        "owner_password",
+        "owner_email",
+        "owner_dob",
+        "owner_contact",
+        "owner_bio"
+      ]
+    }
+  ]
+}
