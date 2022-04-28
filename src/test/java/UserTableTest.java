@@ -36,13 +36,17 @@ public class UserTableTest {
     @Test(priority = 1)
     public void getUser() {
 
-        Response response = given().
-                spec(req).
-                when().
-                get("/api/users").
-                then().spec(res).
-                statusCode(200).extract().response();
-        response.prettyPrint();
+        RestAssured.useRelaxedHTTPSValidation();
+        Response response =
+                given()
+                        .baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get("/api/users")
+                        .then()
+                        .statusCode(200)
+                        .statusLine("HTTP/1.1 200 OK")
+                        .log().all().extract().response();
 
         JSONArray arr = new JSONArray(response.asString());
         boolean flag = false;
@@ -69,9 +73,7 @@ public class UserTableTest {
                         .statusCode(200)
                         .statusLine("HTTP/1.1 200 OK")
                         .header("content-type","application/json; charset=utf-8")
-                        .log().all()
-                        .extract()
-                        .response();
+                        .log().all().extract().response();
         JSONArray jsonAsArray = new JSONArray(response.asString());
         boolean flag= false;
         JSONObject obj = jsonAsArray.getJSONObject(0);
