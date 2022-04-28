@@ -1,10 +1,16 @@
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.hc.core5.http.HttpStatus;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.IOException;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import static io.restassured.RestAssured.*;
@@ -152,17 +158,47 @@ public class TestCases {
                 then().
                 body(matchesJsonSchemaInClasspath("json_GetSpace_AvgRating_typicode.json"));
     }
-//    @Test
-//    public void CreateASpace(){
-//        given()
-//                .baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app/api")
-//                .body("")
-//                .header("Content-Type","application/x-www-form-urlencoded")
-//                .when()
-//                .post("/spaces/create")
-//                .then()
-//                .statusCode(200);
-//    }
+    @Test
+    public void  createspaces() throws IOException {
+        CreateSpaces cs = new CreateSpaces();
+        RestAssured.useRelaxedHTTPSValidation();
+        String name=cs.sendData(0, 1, 0);
+        String type =cs.sendData(0, 1, 1);
+        String price = cs.sendData(0, 1, 2);
+        String address =cs.sendData(0, 1, 3);
+        String start_time=cs.sendData(0, 1, 4);
+        String end_time=cs.sendData(0, 1, 5);
+        String owner_id=cs.sendData(0, 1, 6);
+        JSONObject object = new JSONObject();
+        object.put("name",name);
+        object.put("type",type);
+        object.put("price",price);
+        object.put("address",address);
+        object.put("start_time",start_time);
+        object.put("end_time",end_time);
+        object.put("owner_id",owner_id);
+        String jsonAsString = object.toString();
+        Response response =
+                given()
+                        .baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")                .body(jsonAsString)
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .post("/api/spaces/create")
+                        .then()
+                        .statusCode(HttpStatus.SC_OK)
+                        .statusLine("HTTP/1.1 200 OK")
+                        .header("content-type","application/json; charset=utf-8")
+                        .log().all()
+                        .extract()
+                        .response();
+        JSONArray jsonAsArray = new JSONArray(response.asString());
+        boolean flag= false;
+        JSONObject obj = jsonAsArray.getJSONObject(0);
+        if(obj.get("lastSpaceId").equals(65)){
+            flag = true;
+        }
+        Assert.assertTrue(flag);
+    }
 //    @Test
 //    public void GetEveryDetail(){
 //        baseURI = "https://hu-spacecorp-back-urtjok3rza-wl.a.run.app/api";
