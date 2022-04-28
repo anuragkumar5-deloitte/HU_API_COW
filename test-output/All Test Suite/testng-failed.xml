@@ -6,12 +6,11 @@
   </listeners>
   <test thread-count="5" name="C:/Users/anuragkumar5/Desktop/Files/HU_COW_SELENIUM_MAIN(failed)">
     <classes>
-      <class name="UserTableTest">
+      <class name="CreateSpacesTest">
         <methods>
-          <include name="setupTest"/>
-          <include name="createUser"/>
+          <include name="createspaces"/>
         </methods>
-      </class> <!-- UserTableTest -->
+      </class> <!-- CreateSpacesTest -->
     </classes>
   </test> <!-- C:/Users/anuragkumar5/Desktop/Files/HU_COW_SELENIUM_MAIN(failed) -->
 </suite> <!-- Failed suite [All Test Suite] -->

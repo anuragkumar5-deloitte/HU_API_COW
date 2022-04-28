@@ -5,14 +5,12 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
@@ -86,7 +84,7 @@ public class UserTableTest {
     //Creating a User
         @Test(priority = 14)
     public void createUser() throws IOException {
-        Requests.ReadingExcel excel = new Requests.ReadingExcel();
+        ReadingExcel excel = new ReadingExcel();
         RestAssured.useRelaxedHTTPSValidation();
         String username=excel.sendData(0, 1, 0);
         System.out.println(username);
@@ -124,17 +122,37 @@ public class UserTableTest {
                         .response();
         String jsonString = response.asString();
         System.out.println(jsonString);
-
-//            JSONArray arr= new JSONArray(response.asString());
-//        boolean flag= false;
-//        for (int i =0; i<arr.length();i++){
-//            JSONObject obj = arr.getJSONObject(i);
-//            if(obj.get("name").equals("raju") && obj.get("username").equals("random_user")){
-//                flag = true;
-//            }
-//        }
-//        Assert.assertTrue(flag);
         Assert.assertEquals(jsonString.contains("User created!"),true);
 }
+    @Test(priority = 4)
+    public  void deleteUserById() {
+        RestAssured.useRelaxedHTTPSValidation();
+        given()
+                .baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("api/users/9")
+                .then()
+                .statusCode(200)
+                .statusLine("HTTP/1.1 200 OK")
+                //.header("content-type","application/json; charset=utf-8")
+                .log().all()
+                .body("html.body", equalTo("User deleted!"));
+    }
+    @Test(priority = 5)
+    public void deleteAllUser() {
+        RestAssured.useRelaxedHTTPSValidation();
+        Response response =
+                given()
+                        .baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
+                        .param("id", "29")
+                        .when()
+                        .delete("/api/api/users")
+                        .then()
+                        .statusCode(200)
+                        .statusLine("HTTP/1.1 200 OK")
+                        .header("content-type", "application/json; charset=utf-8")
+                        .log().all().extract().response();
+    }
 
 }

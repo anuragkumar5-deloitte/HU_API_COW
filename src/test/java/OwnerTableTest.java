@@ -20,12 +20,8 @@ public class OwnerTableTest {
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder().
                 setBaseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app").
                 addHeader("Content-type", "application/json");
-                //log(LogDetail.ALL);
         RestAssured.requestSpecification = requestSpecBuilder.build();
         ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
-               // expectStatusCode(200);
-               // expectContentType(ContentType.JSON);
-                //log(LogDetail.ALL);
         RestAssured.responseSpecification = responseSpecBuilder.build();
     }
 
@@ -33,146 +29,155 @@ public class OwnerTableTest {
     public void createOwner() throws IOException {
         ReadingExcel excel = new ReadingExcel();
         RestAssured.useRelaxedHTTPSValidation();
-        String username=excel.sendData(0, 1, 0);
-        String password =excel.sendData(0, 1, 1);
+        String username = excel.sendData(0, 1, 0);
+        String password = excel.sendData(0, 1, 1);
         String name = excel.sendData(0, 1, 2);
-        String email =excel.sendData(0, 1, 3);
-        String dob=excel.sendData(0, 1, 4);
-        String contact=excel.sendData(0, 1, 5);
-        String bio=excel.sendData(0, 1, 6);
+        String email = excel.sendData(0, 1, 3);
+        String dob = excel.sendData(0, 1, 4);
+        String contact = excel.sendData(0, 1, 5);
+        String bio = excel.sendData(0, 1, 6);
 
         JSONObject object = new JSONObject();
-        object.put("username",username);
-        object.put("password",password);
-        object.put("name",name);
-        object.put("email",email);
-        object.put("dob",dob);
-        object.put("contact",contact);
-        object.put("bio",bio);
-       String jsonAsString = object.toString();
+        object.put("username", username);
+        object.put("password", password);
+        object.put("name", name);
+        object.put("email", email);
+        object.put("dob", dob);
+        object.put("contact", contact);
+        object.put("bio", bio);
+        String jsonAsString = object.toString();
         Response response =
                 given()
-                        //.baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
                         .body(jsonAsString)
                         .contentType(ContentType.JSON)
-                .when()
+                        .when()
                         .post("api/owners/create")
-                .then()
+                        .then()
                         .statusCode(HttpStatus.SC_OK)
                         .statusLine("HTTP/1.1 200 OK")
-                        .header("content-type","application/json; charset=utf-8")
+                        .header("content-type", "application/json; charset=utf-8")
                         .log().all()
                         .extract()
                         .response();
         String jsonString = response.asString();
-        //System.out.println(jsonString);
         Assert.assertTrue(jsonString.contains("Owner created!"));
 
     }
 
     @Test(priority = 9)
-    public void getAllOwners(){
+    public void getAllOwners() {
         RestAssured.useRelaxedHTTPSValidation();
         Response response =
-        given()
-            //.baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
-            .contentType(ContentType.JSON)
-        .when()
-            .get("/api/owners")
-        .then()
-            .statusCode(HttpStatus.SC_OK)
-            .statusLine("HTTP/1.1 200 OK")
-            .header("content-type","application/json; charset=utf-8")
-            .log().all()
-            .extract().response();
+                given()
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get("/api/owners")
+                        .then()
+                        .statusCode(HttpStatus.SC_OK)
+                        .statusLine("HTTP/1.1 200 OK")
+                        .header("content-type", "application/json; charset=utf-8")
+                        .log().all()
+                        .extract().response();
 
         JSONArray jsonAsArray = new JSONArray(response.asString());
-        boolean flag= false;
-        for (int i =0; i<jsonAsArray.length();i++){
+        boolean flag = false;
+        for (int i = 0; i < jsonAsArray.length(); i++) {
             JSONObject obj = jsonAsArray.getJSONObject(i);
-            if(obj.get("username").equals("aaa") || obj.get("username").equals("owner1")
-                    || obj.get("username").equals("sam007") || obj.get("username").equals("admin")){
+            if (obj.get("username").equals("aaa") || obj.get("username").equals("owner1")
+                    || obj.get("username").equals("sam007") || obj.get("username").equals("admin")) {
                 flag = true;
             }
         }
         Assert.assertTrue(flag);
     }
-    @Test(priority = 10)
-    public void getOwnerById(){
+
+    //getting owner by id
+    @Test(priority = 3)
+    public void getOwnerById() {
         System.out.println("getting owner by id");
         System.out.println("----------------------------------------");
         RestAssured.useRelaxedHTTPSValidation();
         Response response =
-                        given()
-                           // .baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
-                            .param("id","5")
+                given()
+                        .param("id", "5")
                         .when()
-                            .get("/api/owners/getOwnerById")
+                        .get("/api/owners/getOwnerById")
                         .then()
-                            .statusCode(HttpStatus.SC_OK)
-                            .statusLine("HTTP/1.1 200 OK")
-                            .header("content-type","application/json; charset=utf-8")
-                            .log().all()
-                            .extract()
-                            .response();
+                        .statusCode(HttpStatus.SC_OK)
+                        .statusLine("HTTP/1.1 200 OK")
+                        .header("content-type", "application/json; charset=utf-8")
+                        .log().all()
+                        .extract()
+                        .response();
         JSONArray jsonAsArray = new JSONArray(response.asString());
-        boolean flag= false;
+        boolean flag = false;
         JSONObject obj = jsonAsArray.getJSONObject(0);
-        if(obj.get("id").equals(5) && obj.get("username").equals("owner1")){
+        if (obj.get("id").equals(5) && obj.get("username").equals("owner1")) {
             flag = true;
         }
         Assert.assertTrue(flag);
         System.out.println("----------------------------------------");
     }
 
-  //  @Test(priority = 4)
-    public  void deleteOwnerById(){
+    //delete owner by id
+    @Test(priority = 4)
+    public void deleteOwnerById() {
         RestAssured.useRelaxedHTTPSValidation();
         Response response =
                 given()
-                        //.baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
                         .contentType(ContentType.JSON)
-                .when()
-                        .delete("api/owners/35")
-                .then()
+                        .when()
+                        .delete("/api/owners/getOwnerById/27")
+                        .then()
                         .statusCode(HttpStatus.SC_OK)
                         .statusLine("HTTP/1.1 200 OK")
-                        .header("content-type","application/json; charset=utf-8")
+                        .header("content-type", "application/json; charset=utf-8")
                         .log().all()
                         .extract().response();
+        String jsonAsStr = response.asString();
+        Assert.assertTrue(jsonAsStr.contains("Owner deleted!"));
     }
 
-    //@Test(priority = 5)
-    public  void deleteALlOwner(){
+    //delete all owners
+//@Test(priority = 5)
+    public void deleteALlOwner() {
         RestAssured.useRelaxedHTTPSValidation();
         Response response =
                 given()
-                        //.baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
                         .contentType(ContentType.JSON)
                         .when()
                         .delete("api/owners")
                         .then()
                         .statusCode(HttpStatus.SC_OK)
                         .statusLine("HTTP/1.1 200 OK")
-                        .header("content-type","application/json; charset=utf-8")
+                        .header("content-type", "application/json; charset=utf-8")
                         .log().all()
                         .extract().response();
+        String jsonAsStr = response.asString();
+        Assert.assertTrue(jsonAsStr.contains(" deleted"));
     }
 
-   // @Test(priority = 6)
-    public  void verifyAnOwner(){
+    //verifying an owner with username and password parameters
+    @Test(priority = 6)
+    public void verifyAnOwner() {
         RestAssured.useRelaxedHTTPSValidation();
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("username", "admin");
+        jsObj.put("password", "admin");
+        String jsStr = jsObj.toString();
         Response response =
                 given()
-                        //.baseUri("https://hu-spacecorp-back-urtjok3rza-wl.a.run.app")
+                        .body(jsStr)
                         .contentType(ContentType.JSON)
                         .when()
-                        .post("api/owners")
+                        .post("/api/ownerLogin")
                         .then()
-                        .statusCode(404)
-                        //.statusLine("HTTP/1.1 200 OK")
-                        //.header("content-type","application/json; charset=utf-8")
+                        .statusCode(200)
+                        .statusLine("HTTP/1.1 200 OK")
+                        .header("content-type", "application/json; charset=utf-8")
                         .log().all()
                         .extract().response();
+        String jsonStr = response.asString();
+        Assert.assertTrue(jsonStr.contains("Record found!"));
     }
 }
